@@ -1,17 +1,17 @@
 @extends('dashboard.partials.app')
-
 @section('content')
+@section('title','Department')
+@section('title-link',route('department.index'))
+@section('action','Edit')
 <div class="main-panel">
     <div class="content-wrapper">
       <div class="row">
+        <h4 class="card-title">@include('dashboard.partials.breadcrumb')</h4>
         <div class="col-12 grid-margin">
           <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Edit Department</h4>
-
-
                 {{-- <form class="row g-3 mt-4"> --}}
-                    {{ Form::open(['method' => 'post', 'class' => 'row g-3 mt-4', 'route' => ['department.update',$department->id]]); }}
+                    {{ Form::open(['method' => 'post', 'class' => 'row g-3', 'route' => ['department.update',$department->id]]); }}
                     @method('put')
                     {{ Form::token(); }}
                     <div class="col-md-6">
@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-12">
                         {{ Form::label('description', 'Department description', ['class' => 'form-label']) }} <span class="text-danger">*</span>
-                        {{ Form::textarea('description', $department->description, ['class' => 'form-control', 'id' => 'editor', 'placeholder' => 'Description']) }}
+                        {{ Form::textarea('description', $department->description, ['class' => 'form-control editor', 'placeholder' => 'Description']) }}
                         @error('description')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror

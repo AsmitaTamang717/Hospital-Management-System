@@ -17,10 +17,19 @@ class District extends Model
     ];
 
     public function municipalities(){
-        return $this->hasMany(Municipality::class);
+        return $this->hasMany(Municipality::class,'district_id','id');
     }
+
 
     public function province(){
         return $this->belongsTo(Province::class,'province_id');
+    }
+
+    public function doctors_permanent(){
+        return $this->hasMany(Doctor::class,'permanent_district','id');
+    }
+
+    public function doctors_temporary(){
+        return $this->hasMany(Doctor::class,'temporary_district','id');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers;
 use App\Http\Requests\LoginValidation;
 use App\Http\Controllers\Controller;
@@ -11,11 +12,6 @@ use Illuminate\Support\Facades\Hash;
 class LoginController extends Controller
 {
     public function index(){
-
-        // if (Auth::check()) {
-        //     return redirect()->route('dashboard');
-        // }
-        
         return view('login.index');
     }
     
@@ -25,7 +21,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             return redirect()->route('dashboard');
         }
- 
+   
         return back()->withErrors([
             'email' => 'Credentials did not match',
         ]);

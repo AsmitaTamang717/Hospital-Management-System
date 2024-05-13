@@ -13,5 +13,13 @@ class ProvinceHelper{
         $provinces = $this->provinces->orderBy('id','desc')-> pluck('english_name','id');
         return $provinces;
     }
+
+    public function provinceRelatedToDistrict(){
+     
+
+    }
+
+    
+
 }
 ?>

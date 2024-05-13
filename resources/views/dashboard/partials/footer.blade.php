@@ -27,17 +27,25 @@
 <script src="{{ asset('dashboard/assets/js/misc.js') }}"></script>
 <script src="{{ asset('dashboard/assets/js/settings.js') }}"></script>
 <script src="{{ asset('dashboard/assets/js/jquery.cookie.js') }}"></script>
-<script src="{{ asset('dashboard/assets/js/editor.js') }}"></script>
+<script src="{{ asset('dashboard/assets/js/dashboard/editor.js') }}"></script>
 <!-- endinject -->
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <!-- Custom js for this page -->
 <script src="{{ asset('dashboard/assets/js/dashboard.js') }}"></script>
 
 <!-- Custom js for previous next page -->
-<script src="{{ asset('dashboard/assets/js/previous-next.js') }}"></script>
+<script src="{{ asset('dashboard/assets/js/dashboard/previous-next.js') }}"></script>
 
 <!-- Custom js for previous next page -->
-<script src="{{ asset('dashboard/assets/js/nepali-date-picker.js') }}"></script>
+<script src="{{ asset('dashboard/assets/js/dashboard/nepali-date-picker.js') }}"></script>
 
+
+<!-- Custom js for previous next page -->
+<script src="{{ asset('dashboard/assets/js/dashboard/doctor.js') }}"></script>
+
+{{-- for closing the session message --}}
+<script src="{{ asset('dashboard/assets/js/dashboard/close-session.js') }}"></script>
 
 
 

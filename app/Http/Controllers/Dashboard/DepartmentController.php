@@ -47,9 +47,10 @@ class DepartmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show( $id)
     {
-        
+        $viewDepartment = $this->departments->find($id);
+        return view('dashboard.department.view',['viewDepartment'=>$viewDepartment]);
     }
 
     /**
@@ -83,4 +84,28 @@ class DepartmentController extends Controller
         $department->delete();
         return redirect()->route('department.index')->with('message','Department deleted successfully!!!');
     }
+
+    //retrieving soft deleted data
+    public function trashDepartment(){
+        $trashedDepartments = $this->departments->onlyTrashed()->get();
+        return view('dashboard.department.trash',['trashedDepartments' => $trashedDepartments]);
+    }
+
+    //restoring soft deleted data
+    public function trashRestore($id){
+        $trashedDepartments = Department::onlyTrashed()->find($id);
+        
+        $trashedDepartments->restore();
+        return redirect()->route('department.index')->with('message','Department restored successfully!!!');
+    
+    }
+
+    public function trashDelete($id){
+        $trashedDelete = Department::onlyTrashed()->find($id);
+        
+        $trashedDelete->forceDelete();
+        return redirect()->route('department.index')->with('message','Trash deleted successfully!!!');
+    
+    }
+
 }

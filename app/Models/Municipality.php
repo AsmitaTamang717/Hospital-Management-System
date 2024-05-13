@@ -15,7 +15,7 @@ class Municipality extends Model
         'muni_type_id'
         
     ];
-    public function district()
+    public function districts()
     {
         return $this->belongsTo(District::class, 'district_id');
     }

@@ -22,21 +22,45 @@ class DoctorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => ['required'],
-            'middle_name' => ['string'],
-            'last_name' => ['required'],
+            // basic details
+            'first_name' => ['required','string'],
+            'middle_name' => ['nullable','string'],
+            'last_name' => ['required','string'],
             'gender' => ['required'],
-            'dob_bs' => ['required'],
-            'dob_ad' => ['required'],
-            'license_no' => ['required'],
-            'temporary_province_no' => ['integer'],
-            'temporary_district' => ['required','string'],
-            'temporary_municipality_name' => ['required','string'],
-            'permanent_province_no' => ['required','integer'],
-            'permanent_district' => ['required','integer'],
-            'permanent_municipality_name' => ['required','string'],
-            'temporary_street_name' => ['required','string'],
-            'permanent_street_name' => ['required','string'],
+            'dob_bs' => ['required','date'],
+            'dob_ad' => ['required','date'],
+            'phone' => ['required','digits:10'],
+            'license_no' => ['required','integer','digits:6'],
+            'image_file' => ['nullable'],
+            'dep_id' =>['required'],
+
+            //address details
+            'country_id' => ['required','integer'],
+            'temporary_province_id' => ['nullable','integer'],
+            'temporary_district_id' => ['nullable','integer'],
+            'temporary_municipality_id' => ['nullable','integer'],
+            'permanent_province_id' => ['required','integer'],
+            'permanent_district_id' => ['required','integer'],
+            'permanent_municipality_id' => ['required','integer'],
+            'temporary_street_name' => ['nullable','string'],
+            'permanent_street_name' => ['required', 'string'],
+
+            // education
+            'degree.*' => ['required'],
+            'specialization.*' => ['required','string'],
+            'institution.*' => ['required','string'],
+            'completion_year_bs.*' => ['required','date'],
+            'completion_year_ad.*' => ['required','date'],
+            'obtained_marks.*' => ['required','integer'],
+
+            // experience
+            'organization.*' => ['required','string'],
+            'position.*' => ['required','string'],
+            'start_date_bs.*' => ['required','date'],
+            'start_date_ad.*' => ['required','date'],
+            'end_date_bs.*' => ['required','date'],
+            'end_date_ad.*' => ['required','date'],
+            'description.*' => ['nullable'],
         ];
     }
 }

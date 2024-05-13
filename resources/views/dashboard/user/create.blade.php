@@ -1,15 +1,18 @@
 @extends('dashboard.partials.app')
 @section('content')
+@section('title','User')
+@section('title-link',route('user.index') )
+@section('action','Create')
 @inject('RoleHelper','App\Helpers\RoleHelper')
 <div class="main-panel">
     <div class="content-wrapper">
+      <h4 class="card-title">@include('dashboard.partials.breadcrumb')</h4>
       <div class="row">
         <div class="col-12 grid-margin">
           <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Create User</h4>
                 
-                    {{ Form::open(['method' => 'post', 'class' => 'row g-3 mt-4', 'route' => 'user.store']); }}
+                    {{ Form::open(['method' => 'post', 'class' => 'row g-3', 'route' => 'user.store']); }}
                     {{ Form::token(); }}
                     <div class="col-md-6">
                         {{ Form::label('name', 'User name', ['class' => 'form-label']) }}

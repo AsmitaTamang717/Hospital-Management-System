@@ -47,9 +47,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show( $id)
     {
-        //
+        $viewUser = $this->users->find($id);
+        return view('dashboard.user.view',['viewUser'=>$viewUser]);
     }
 
     /**
@@ -93,5 +94,29 @@ class UserController extends Controller
         return redirect()->route('user.index')->with('message','User deleted successfully!!!');
 
 
+    }
+
+    //retrieving soft deleted data
+    public function trashUser(){
+        $trashedUsers = $this->users->onlyTrashed()->get();
+        return view('dashboard.user.trash',['trashedUsers' => $trashedUsers]);
+    }
+
+    //restoring soft deleted data
+    public function trashRestore($id){
+        $trashedUsers = User::onlyTrashed()->find($id);
+        
+        $trashedUsers->restore();
+        return redirect()->route('user.index')->with('message','User restored successfully!!!');
+    
+    }
+
+    //permanently deleting
+    public function trashDelete($id){
+        $trashedUsers = User::onlyTrashed()->find($id);
+        
+        $trashedUsers->forceDelete();
+        return redirect()->route('user.index')->with('message','Trash deleted successfully!!!');
+    
     }
 }

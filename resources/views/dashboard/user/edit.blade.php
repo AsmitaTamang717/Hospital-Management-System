@@ -1,15 +1,18 @@
 @extends('dashboard.partials.app')
 @section('content')
+@section('title','User')
+@section('title-link',route('user.index'))
+@section('action','Edit')
 @inject('RoleHelper','App\Helpers\RoleHelper')
 <div class="main-panel">
     <div class="content-wrapper">
+      <h4 class="card-title">@include('dashboard.partials.breadcrumb')</h4>
       <div class="row">
         <div class="col-12 grid-margin">
           <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Edit User</h4>
+            <div class="card-body">               
                 
-                {{ Form::open(['route' => ['user.update', $user->id], 'method' => 'post', 'class' => 'row g-3 mt-4']) }}
+                {{ Form::open(['route' => ['user.update', $user->id], 'method' => 'post', 'class' => 'row g-3']) }}
                 @method('put')
                 {{ Form::token() }}
                     <div class="col-md-6">

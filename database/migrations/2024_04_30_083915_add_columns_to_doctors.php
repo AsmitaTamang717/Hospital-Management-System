@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('doctors', function (Blueprint $table) {
             $table->string('image_file')->after('license_no');
-            $table->string('department')->after('image_file');
             $table->integer('phone')->after('dob_ad');
         });
 
@@ -35,11 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('doctors', function (Blueprint $table) {
-            $table->dropColumn('image_file');
-            $table->dropColumn('department');
-            $table->dropColumn('phone');
-        });
 
         Schema::table('education', function (Blueprint $table) {
             $table->dropColumn('completion_year_bs');
