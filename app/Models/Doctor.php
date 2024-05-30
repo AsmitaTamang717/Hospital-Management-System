@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Doctor extends Model
 {
-    use HasFactory,SoftDeletes;
-   
-   
+    use HasFactory,SoftDeletes, Notifiable;
 
     protected $fillable =[
         'dep_id',
@@ -34,8 +33,8 @@ class Doctor extends Model
         'permanent_street_name',
     ];
      // department and doctor
-     public function department(){
-        return $this->belongsTo(Department::class,'doc_id');
+    public function department(){
+        return $this->belongsTo(Department::class);
     }
 
     public function educations(){
@@ -53,4 +52,20 @@ class Doctor extends Model
         return $this->hasMany(Schedule::class,'doc_id','id');
     }
 
+    public function patients(){
+        return $this->hasMany(Patient::class,'doc_id','id');
+    }
+
+    public function appointments(){
+        return $this->hasMany(Appointment::class,'doc_id','id');
+    }
+
+    public function user(){
+        return $this->hasOne(User::class,'doc_id','id');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'notifiable_id','id');
+    }
 }

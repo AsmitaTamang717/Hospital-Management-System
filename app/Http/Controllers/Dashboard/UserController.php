@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -36,12 +37,24 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $user[]=Hash::make($request->password);
-        $user = $request->validated();
-
-        $this->users->create($user);
-
+        // dd($request->all());
+        DB::beginTransaction();
+        try{
+            $validatedUser = $request->validated();
+            $validatedUser['password']=Hash::make($request->password);
+        // dd($validatedUser);
+        $user = $this->users->create([
+            'username' => $validatedUser['username'],
+            'email' => $validatedUser['email'],
+            'password' =>  $validatedUser['password'],
+        ]);
+        $user->syncRoles($request->role_name);
+        DB::commit();
         return redirect()->route('user.index')->with('message','User added successfully!!!');
+        }catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -59,8 +72,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = $this->users->findorFail($id);
-
-        return view('dashboard.user.edit',compact('user'));
+        $userRoles = $user->roles;
+        // dd($userRoles);
+        return view('dashboard.user.edit',compact('user','userRoles'));
     }
 
     /**
@@ -68,16 +82,19 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $user = $this->users->findorFail($id);
 
         $validatedUser = $request->validate([
             'username' => 'required|string',
-            'email' => 'required|email'
+            'email' => 'required|email',
+            'role_name' => 'required'
         ]
-
         );
 
-        $user->update($validatedUser);
+        // dd($validatedUser);
+        $updatedUser = $user->update($validatedUser);
+        $user->syncRoles($request->role_name);
 
         return redirect()->route('user.index')->with('message','User updated successfully!!!');
 

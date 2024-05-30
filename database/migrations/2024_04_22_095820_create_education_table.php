@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('completion_year');
             $table->string('institution');
             $table->integer('obtained_marks');
+            $table->integer('completion_year_bs');
+            $table->integer('completion_year_ad');
             $table->softDeletes();
             $table->timestamps();
         });

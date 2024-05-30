@@ -27,15 +27,13 @@ class DoctorController extends Controller
         $this->doctorEducation = $doctorEducation;
         $this->doctorExperience = $doctorExperience;
         $this->users = $users;
-
     }
-
-
     
     public function index()
     {
        
         $doctors = $this->doctors->with('educations','experiences')->get();
+       
         return view('dashboard.doctor.index',compact('doctors'));
     }
 
@@ -52,13 +50,12 @@ class DoctorController extends Controller
      */
     public function store(DoctorRequest $request)
     {
-    
-       
 
-    // DB::beginTransaction();
+    DB::beginTransaction();
     
     try {
         $validatedDoctor = $request->validated();
+        // dd($validatedDoctor);
 
         // Upload image
         if ($request->hasFile('image_file')) {
@@ -69,8 +66,6 @@ class DoctorController extends Controller
         } 
 
         // Create doctor
-        
-        
         $doctor = $this->doctors->create($validatedDoctor);
 
         // Create education
@@ -105,16 +100,14 @@ class DoctorController extends Controller
         }
 
         // create user
-        $role_id = 2;
         $this->users->create([
-            'role_id' => $role_id,
             'doc_id' => $doctor->id,
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password), 
         ]);
 
-        // DB::commit();
+         DB::commit();
         return redirect()->route('doctor.index')->with('message','Doctor added successfully!!!');
     } catch (\Exception $e) {
         DB::rollBack();
@@ -130,7 +123,15 @@ class DoctorController extends Controller
     public function show($id)
     {
         $doctor = $this->doctors->with('educations','experiences')->find($id);
-        return view('dashboard.doctor.view',['doctor'=>$doctor]);
+        foreach ($doctor->educations as $education) {
+            $degreeId = $education->degree;
+            $degrees = config('doctor_degree.degree');
+
+            if(isset($degrees[$degreeId])){
+                $degree = $degrees[$degreeId];
+            }
+        } 
+        return view('dashboard.doctor.view',['doctor'=>$doctor,'degree'=> $degree]);
     }
 
     /**
@@ -141,10 +142,10 @@ class DoctorController extends Controller
         $doctor = $this->doctors->with(['educations','experiences'])->findorFail($id);
         $province = Province::findOrFail($doctor->permanent_province_id);
         $districtsBasedOnProvince = $province->districts;
-        // dd($districtsBasedOnProvince);
+        
         $district = District::findOrFail($province->id);
         $muncipalitiesBasedOnDistrict = $district->Municipalities;
-        // dd( $muncipalitiesBasedOnDistrict);
+      
 
         
         $educations = $doctor->educations;
@@ -160,7 +161,8 @@ class DoctorController extends Controller
      */
     public function update(DoctorRequest $request, $id)
     {
-        // dd($request->all());
+        DB::beginTransaction();
+        try{
         $validatedDoctor = $request->validated();
         $doctors = $this->doctors->findorFail($id);
 
@@ -181,7 +183,7 @@ class DoctorController extends Controller
         }
 
 
-        $doctor = $doctors->update($validatedDoctor);
+      $doctors->update($validatedDoctor);
 
         //education
         if ($request->degree) {
@@ -215,9 +217,10 @@ class DoctorController extends Controller
         }
 
         return redirect()->route('doctor.index')->with('message','Doctor updated successfully!!!');
-
-
-
+        }catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -293,6 +296,39 @@ class DoctorController extends Controller
             $trashedDoctors->forceDelete();
         }
         return redirect()->route('doctor.index')->with('message','Doctor deleted successfully!!!');
+    }
+
+    public function searchFilter(Request $request){
+        // dd($request->all());
+        $searchValues = $this->doctors->with('educations','experiences');
+        // dd( $searchValues->get());
+        if($request->filled('dep_id')){
+            $searchValues = $searchValues->where('dep_id',$request->dep_id);
+            // dd($searchValues->get());
+        }
+       
+        if($request->filled('specialization')){
+            $specialization = $request->specialization;
+            // dd($specialization);
+            $searchValues = $searchValues->whereHas('educations', function($query) use ($specialization){
+                $query->where('specialization', $specialization);
+            }); 
+            // dd($searchValues->get());
+        }
+      
+        if($request->filled('randomSearch')){
+            $randomSearch = $request->randomSearch;
+            // dd($searchValues->get());
+            $searchValues = $searchValues
+                    ->where('first_name', 'LIKE', '%' . $randomSearch . '%')
+                    ->orWhere('middle_name', 'LIKE', '%' . $randomSearch . '%')
+                    ->orWhere('last_name', 'LIKE', '%' . $randomSearch . '%');
+                    // dd($searchValues->get());
+        }
+
+        $searchValues = $searchValues->get();
+        // dd($searchValues);
+        return view('dashboard.doctor.index',['doctors' => $searchValues]);
     }
 
 }

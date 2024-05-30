@@ -15,13 +15,10 @@
         <nav aria-label="breadcrumb">
           <ul class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page">
-              <a href="{{ route('trashDepartment') }}" class="btn btn-outline-danger trash-btn">
-                <i class="fa fa-trash pe-1" aria-hidden="true"></i>
-                Trash
-              </a>  
-              <a href="{{ route('department.create')}}" class="btn btn-outline-primary modify-btn">
-                <i class="mdi mdi-plus pe-1"></i>New
-              </a>            
+              <a href="{{ route('department.index') }}" class="btn bg-danger trash-btn text-light">
+                <i class="bi bi-box-arrow-left pe-1"></i>
+                Back
+              </a>             
             </li>
           </ul>
         </nav>
@@ -30,15 +27,27 @@
       
       <div class="row">
         <div class="col-12 grid-margin">
-          <div class="card">
-            <div class="card-body d-flex flex-column justify-content-center text-capitalize">
-              <h3>Department name: {{ $viewDepartment->name }}</h3>
-              <span>code:{{ $viewDepartment->code }}</span>
-              <p class='mb-0 '>Description:{!! $viewDepartment->description !!}</p>
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Department Details</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="mb-3">
+                        <i class="mdi mdi-office-building pe-2"></i> Department Name: <span class="font-weight-bold">{{ $viewDepartment->name }}</span>
+                    </h5>
+                    <h6 class="mb-3">
+                        <i class="mdi mdi-barcode-scan pe-2"></i> Code: <span class="font-weight-bold">{{ $viewDepartment->code }}</span>
+                    </h6>
+                    <div class="description mt-4">
+                        <h6><i class="mdi mdi-information-outline pe-2"></i> Description:</h6>
+                        <p class='mb-0'>{!! $viewDepartment->description !!}</p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+        
+    </div>
+    
     </div>
   </div>
 </div>

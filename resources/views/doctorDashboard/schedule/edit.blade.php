@@ -5,7 +5,7 @@
 @section('action','Edit')
 <div class="main-panel">
     <div class="content-wrapper">
-      <h4 class="card-title">@include('dashboard.partials.breadcrumb')</h4>
+      <h4 class="card-title">@include('doctorDashboard.partials.breadcrumb')</h4>
       <div class="row">
         <div class="col-12 grid-margin">
           <div class="card">

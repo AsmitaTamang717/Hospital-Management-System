@@ -10,7 +10,7 @@ class RoleHelper{
         $this->roles = $roles;
     }
     public function dropdown(){
-        $roles = $this->roles->orderBy('id','desc')-> pluck('name','id');
+        $roles = $this->roles->orderBy('id','desc')-> pluck('name','name');
         return $roles;
     }
 }

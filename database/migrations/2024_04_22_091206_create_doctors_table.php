@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('dep_id')->constrained('departments');
             $table->bigInteger('license_no');
+            $table->string('image_file');
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
             $table->enum('gender',['male','female','others']);
             $table->date('dob_bs');
             $table->date('dob_ad');
-            $table->string('image_file');
-            $table->integer('phone');
+            $table->integer('phone');         
             $table->foreignId('country_id')->constrained('countries');
             $table->foreignId('permanent_province_id')->constrained('provinces');
             $table->foreignId('permanent_district_id')->constrained('districts');
@@ -32,6 +32,8 @@ return new class extends Migration
             $table->foreignId('temporary_district_id')->constrained('districts');
             $table->foreignId('temporary_municipality_id')->constrained('municipalities');
             $table->string('temporary_street_name')->nullable();
+            
+            
             $table->softDeletes();
             $table->timestamps();
         });

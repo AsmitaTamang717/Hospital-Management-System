@@ -12,6 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->command('schedule:reset-doctor-status')->weeklyOn(0,'0:00');
+        // $schedule->command('schedule:reset-doctor-status')->everyTwoMinutes();
         // $schedule->command('inspire')->hourly();
     }
 

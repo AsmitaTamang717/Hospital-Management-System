@@ -31,14 +31,15 @@
                         @enderror
                     </div>
                     
-
-                    <div class="col-md-6">
-                      {{ Form::label('role', 'Role', ['class' => 'form-label']) }}
-                      {{ Form::select('role_id',$RoleHelper->dropdown(), $user->role_id, ['placeholder' => 'Select Role','class' => 'form-control form-select']); }}
-                      @error('role_id')
-                          <span class="text-danger">{{ $message }}</span>
-                      @enderror
+                  
+                   <div class="col-md-6">
+                    {{ Form::label('role', 'Role', ['class' => 'form-label']) }}
+                    {{ Form::select('role_name[]',$RoleHelper->dropdown(),$userRoles->pluck('name'), ['placeholder' => 'Select Role','class' => 'form-control js-example-basic-multiple form-select','multiple'=>'multiple']); }}
+                    @error('role_name')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                   </div>
+                  
 
                     <div class="col-12 mt-4">
                       <div class="row">

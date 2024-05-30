@@ -1,6 +1,8 @@
 @extends('dashboard.partials.app')
 @section('content')
 @section('title','Doctor')
+@inject('DepartmentHelper','App\Helpers\DepartmentHelper')
+@inject('SpecializationHelper','App\Helpers\SpecializationHelper')
 <div class="main-panel">
     <div class="content-wrapper">
       <div class="page-header">
@@ -29,7 +31,28 @@
         {{ session('message') }} 
         <i class="bi bi-x-circle position-absolute pe-2" style="top:5px; right:0px; font-size:18px; cursor:pointer" onclick="closeSession()"></i>
       </div>
-      @endsession
+      @endif
+
+{{-- search  --}}
+      <nav class="navbar bg-transparent mb-2">
+        <div class="container-fluid ps-0">
+          <form class="d-flex w-100"  method="post" action="{{ route('searchFilter') }}">
+            @csrf
+            {{ Form::select('dep_id',$DepartmentHelper->dropdown(), null,[
+              'class' => 'form-control  form-select py-2 me-2 px-4',
+              'placeholder' => 'Select by Department'
+              ] ); }}
+            {{ Form::select('specialization',$SpecializationHelper->dropdown(), null,[
+              'class' => 'form-control  form-select py-2 me-2 px-4',
+              'placeholder' => 'Select by Specialization'
+              ] ); }}           
+            <input class="form-control me-2" name="randomSearch"  type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-primary me-1" type="submit">Search</button>
+            <button class="btn btn-danger"><i class="bi bi-arrow-clockwise"></i></button>
+          </form>
+        </div>
+      </nav>
+      
 
       <div class="row">
         <div class="col-12 grid-margin">
@@ -48,9 +71,12 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @php
+                      $count=1
+                    @endphp
                     @foreach($doctors as $doctor)
                     <tr>
-                      <td>{{ $doctor->id }}</td>
+                      <td>{{ $count++ }}</td>
                       <td>{{ $doctor->first_name.' '.$doctor->middle_name.' '.$doctor->last_name }}</td>
                    
                       <td>{{$doctor->educations[0]->specialization }}</td>
@@ -69,7 +95,9 @@
                     @endforeach
                   </tbody>
                 </table>
-
+                {{-- @if(isset($searchValues) && $searchValues->isEmpty())
+                  <p>No results found.</p>
+                @endif --}}
               </div>
             </div>
           </div>

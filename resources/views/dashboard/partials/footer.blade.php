@@ -47,7 +47,10 @@
 {{-- for closing the session message --}}
 <script src="{{ asset('dashboard/assets/js/dashboard/close-session.js') }}"></script>
 
+<script src="{{ asset('frontend/js/menu_type.js') }}"></script>
 
+{{-- footer --}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <!-- End custom js for this page -->
 <!-- toastr JS Link  -->

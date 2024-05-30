@@ -15,13 +15,10 @@
         <nav aria-label="breadcrumb">
           <ul class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page">
-              <a href="{{ route('trashUser') }}" class="btn btn-outline-danger trash-btn">
-                <i class="fa fa-trash pe-1" aria-hidden="true"></i>
-                Trash
-              </a>  
-              <a href="{{ route('user.create')}}" class="btn btn-outline-primary modify-btn">
-                <i class="mdi mdi-plus pe-1"></i>New
-              </a>            
+              <a href="{{ route('user.index') }}" class="btn bg-danger trash-btn text-light">
+                <i class="bi bi-box-arrow-left pe-1"></i>
+                Back
+              </a>             
             </li>
           </ul>
         </nav>
@@ -29,10 +26,10 @@
       
       <div class="row">
         <div class="col-12 grid-margin">
-          <div class="card">
+          <div class="card user-profile-card">
             <div class="card-body d-flex flex-column justify-content-center text-capitalize">
-              <h3>User name: {{ $viewUser->username }}</h3>
-              <span>Email : {{ $viewUser->email }}</span>
+              <h3 class="user-name">User name: {{ $viewUser->username }}</h3>
+              <span class="user-email">Email : {{ $viewUser->email }}</span>
             </div>
           </div>
         </div>

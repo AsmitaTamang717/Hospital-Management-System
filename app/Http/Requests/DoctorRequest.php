@@ -51,7 +51,7 @@ class DoctorRequest extends FormRequest
             'institution.*' => ['required','string'],
             'completion_year_bs.*' => ['required','date'],
             'completion_year_ad.*' => ['required','date'],
-            'obtained_marks.*' => ['required','integer'],
+            'obtained_marks.*' => ['required','integer','between:1,100'],
 
             // experience
             'organization.*' => ['required','string'],
@@ -61,6 +61,8 @@ class DoctorRequest extends FormRequest
             'end_date_bs.*' => ['required','date'],
             'end_date_ad.*' => ['required','date'],
             'description.*' => ['nullable'],
+
+          
         ];
     }
 }

@@ -1,12 +1,22 @@
 
+// Select all elements with the class 'editor'
+const editorElements = document.querySelectorAll('.editor');
 
-ClassicEditor
-		.create( document.querySelector( '.editor' ),{
+// Loop through each editor element and initialize ClassicEditor
+editorElements.forEach(element => {
+    ClassicEditor
+        .create(element, {
+            // Configuration options for each editor
+           
+        })
+        .then(editor => {
+            console.log('Editor initialized successfully:', editor);
+        })
+        .catch(error => {
+            console.error('Error initializing editor:', error);
+        });
+});
 
-        } )
-		.catch( error => {
-			console.error( error );
-		} );
 
 
 // ClassicEditor

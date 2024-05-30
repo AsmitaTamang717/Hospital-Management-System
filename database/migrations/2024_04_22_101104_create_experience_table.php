@@ -18,6 +18,10 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->longText('description');
+            $table->integer('start_date_bs');
+            $table->integer('start_date_ad');
+            $table->integer('end_date_bs');
+            $table->integer('end_date_ad');
             $table->softDeletes();
             $table->timestamps();
         });

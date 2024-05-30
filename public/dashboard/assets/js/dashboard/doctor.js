@@ -15,7 +15,6 @@ $(document).ready(function() {
                 $.each(districts, function(id, name) {
                     districtSelect.append($('<option>').text(name).attr('value', id));
                 });
-
             },
             error: function(xhr, status, error) {
                 console.error(error);
@@ -60,6 +59,8 @@ $(document).ready(function() {
         if (!temporaryDetails) {
             const permanentDetails = $('.permanent-address-details');
             temporaryDetails = permanentDetails.clone(true);
+            temporaryDetails.removeClass('permanent-address-details');
+           
             
             /// Update IDs, names, and other attributes
             temporaryDetails.find('[id^="permanent"]').each(function() {
@@ -77,14 +78,15 @@ $(document).ready(function() {
                 if (dataMessage && dataMessage.startsWith('Permanent')) {
                     $(this).attr('data-message', dataMessage.replace('Permanent', 'Temporary'));
                 }
-                
-                
 
             });
 
             const temporaryDetailsDiv = $('.temporary-address-details');
             temporaryDetailsDiv.append(temporaryDetails);
 
+        
+            temporaryDetailsDiv.find('input,select').val('');
+          
             
             $(this).text('Remove temporary details').attr('id', 'removeTemporaryDetails').addClass('bg-danger border-0');
         }
@@ -110,7 +112,7 @@ $(document).ready(function() {
         $(document).on('click', '#addEducation_1', function() {
                 const newEducationDetails = $('.education-details-category').clone(true);  
                 newEducationDetails.removeClass('education-details-category');
-  
+              
 
                 // Create and append remove button to the degree head
                 var removeBtn = $("<div>").addClass('btn d-flex education-remove  justify-content-end').append('<i class="fa fa-minus-square text-danger" aria-hidden="true"></i>').attr('id','new_id_'+addCounter);
@@ -118,6 +120,9 @@ $(document).ready(function() {
 
         
                 $('.new-Education-details').append(newEducationDetails);
+                
+                $('.new-Education-details').find('input,select').val('');
+                
                 
                 newEducationDetails.find('.nepali-date-picker-bs').removeClass('nepali-date-picker-bs').attr('id','education_cloned_bs_'+addCounter);
                 newEducationDetails.find('.nepali-date-picker-ad').removeClass('nepali-date-picker-ad').attr('id','education_cloned_ad_'+addCounter);
@@ -156,6 +161,10 @@ $(document).ready(function() {
                 const newExperienceDetails = $('.experience_1').clone(true);  
                 newExperienceDetails.removeClass('experience_1');
                 $('.experience_2').append(newExperienceDetails);
+
+                
+                $('.experience_2').find('input,select,text').val('');
+             
                 
                    // Create and append remove button to the degree head
                 var removeBtn = $("<button>").addClass('btn remove-btn experience-remove d-flex justify-content-end').append('<i class="fa fa-minus-square text-danger" aria-hidden="true"></i>');
@@ -211,8 +220,38 @@ $(document).ready(function() {
                 var ad_date = NepaliFunctions.BS2AD(bs_date);
                 ad_date_input.val(ad_date);
                 }
-                });
+            });
+            
+            var editorId = 'editor_' + addCounter;
 
+            // Remove the 'editor' class and add the ID with the counter
+            var editorElement = $('.experience_2').find('.editor').removeClass('editor').attr('id', editorId);
+            
+            // Reinitialize CKEditor for the new element
+            ClassicEditor
+                .create(document.querySelector(`#${editorId}`))
+                .then(editor => {
+                    console.log('Editor reinitialized:', editor);
+            
+                    // Optionally, remove duplicate editor instances
+                    var divsWithClass = document.querySelectorAll('div.ck.ck-reset.ck-editor.ck-rounded-corners');
+                    var firstAriaLabelledBy = null;
+            
+                    divsWithClass.forEach(function(div) {
+                        if (div.hasAttribute('aria-labelledby')) {
+                            var currentAriaLabelledBy = div.getAttribute('aria-labelledby');
+                            if (firstAriaLabelledBy === null) {
+                                firstAriaLabelledBy = currentAriaLabelledBy;
+                            } else if (currentAriaLabelledBy === firstAriaLabelledBy) {
+                                div.parentNode.removeChild(div);
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error initializing CKEditor:', error);
+                });
+            
                addCounter++;
         });
         $(document).on('click', '.experience-remove', function(event) {
@@ -223,6 +262,13 @@ $(document).ready(function() {
         });  
         
 }); 
+
+// select tool
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+
+
 
 
 

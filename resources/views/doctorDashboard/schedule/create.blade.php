@@ -5,7 +5,7 @@
 @section('action','Create')
 <div class="main-panel">
     <div class="content-wrapper">
-      <h4 class="card-title">@include('dashboard.partials.breadcrumb')</h4>
+      <h4 class="card-title">@include('doctorDashboard.partials.breadcrumb')</h4>
       <div class="row">
         <div class="col-12 grid-margin">
           <div class="card">
@@ -25,7 +25,6 @@
                         {{ Form::time('from',null, ['class' => 'form-control', 'id' => 'from']) }}
                         @error('from')
                             <span class="text-danger">{{ $message }}</span>
-                        
                         @enderror
                     </div>
                     

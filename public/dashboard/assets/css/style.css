@@ -8390,7 +8390,7 @@
   --bs-danger: #fe7c96;
   --bs-light: #f8f9fa;
   --bs-dark: #3e4b5b;
-  --bs-primary-rgb: 182, 109, 255;
+  --bs-primary-rgb: 34, 58, 102;
   --bs-secondary-rgb: 195, 189, 189;
   --bs-success-rgb: 27, 207, 180;
   --bs-info-rgb: 25, 138, 227;
@@ -10702,7 +10702,7 @@ textarea.form-control-lg {
 }
 .form-check .form-check-input {
   float: left;
-  margin-left: -1.5em;
+  margin-left: 0.5em;
 }
 
 .form-check-reverse {
@@ -26372,8 +26372,11 @@ legend{
   font-weight: 500;
   color:white;
 }
-.breadcrumb-hospital .active a{
+.breadcrumb-hospital a{
   color:black;
+}
+.breadcrumb-hospital a:hover{
+  color:#223a66;
 }
 .breadcrumb-hospital .breadcrumb-item{
   font-size: 16px;
@@ -26390,6 +26393,44 @@ legend{
   cursor: pointer;
 }
 
+/* department view */
+.card-header {
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 0;
+  }
+
+.card-body {
+    padding: 2rem;
+}
+
+.card-body h4, .card-body h5 {
+    margin-bottom: 1rem;
+}
+
+.description {
+    border-top: 1px solid #dee2e6;
+    padding-top: 1rem;
+}
+
+/* pagination */
+.pagination{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom:0px;
+}
+.page-item{
+  line-height: 1.4!important;
+  font-size: 14px;
+  font-weight: 500;
+  padding:2px 0px;
+}
+
+.page-item a{
+  color:#047edf;
+}
+   
+
 /* remove button of experience details */
 .experience-remove, .education-remove{
   position:absolute;
@@ -26398,6 +26439,69 @@ legend{
 }
 
 /* profile image */
-.profile-pic{
-  width:100%;
+
+ 
+.select2-selection select2-selection--multiple{
+  padding:14px!important;
+} 
+.select2-selection{
+  padding:16px 0px;
+} 
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__display{
+  padding-left:12px;
+}
+/* .select2-container--default .select2-selection--multiple{
+  display: flex;
+  align-items: center;
+} */
+
+/* status for schedule */
+.form-check-input:checked{
+  background-color: #223a66;
+  border-color: #223a66;
+}
+
+/* doctor view  */
+.profile-card {
+  width: 100%;
+}
+.profile-pic {
+  width: 100%;
+  height: auto;
+  border-bottom: 2px solid #f8f9fa;
+}
+.card-title {
+  margin-bottom: 0.5rem;
+}
+.card-body p {
+  margin: 0.5rem 0;
+}
+.list-group-item {
+  border: none;
+  padding: 0.75rem 1.25rem;
+  background-color: #f8f9fa;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+}
+
+/* user view */
+.user-profile-card {
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+.user-profile-card .card-body {
+  align-items: center;
+  text-align: center;
+}
+.user-profile-card .user-name {
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+.user-profile-card .user-email {
+  font-size: 1rem;
+  color: #555;
 }

@@ -47,6 +47,10 @@
 {{-- closing the session message --}}
 <script src="{{ asset('dashboard/assets/js/dashboard/close-session.js') }}"></script>
 
+{{-- get district municipalities for doctor dashboard editing profile --}}
+<script src="{{ asset('dashboard/assets/js/dashboard/close-session.js') }}"></script>
+<script src="{{ asset('dashboard/assets/js/doctorDashboard/submit.js') }}"></script>
+
 
 
 <!-- End custom js for this page -->

@@ -30,7 +30,7 @@
         {{ session('message') }} 
         <i class="bi bi-x-circle position-absolute pe-2" style="top:5px; right:0px; font-size:18px; cursor:pointer" onclick="closeSession()"></i>
       </div>
-      @endsession
+      @endif
       
       <div class="row">
         <div class="col-12 grid-margin">
@@ -48,9 +48,12 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @php
+                      $count=1
+                    @endphp
                     @foreach($departments as $department)
                       <tr>
-                        <td>{{ $department->id }}</td>
+                        <td>{{ $count++ }}</td>
                         <td>{{ $department->name }}</td>
                         <td>{{ $department->code }}</td>
                         <td>{!! strlen($department->description) > 20 ? substr($department->description, 0, 20) . '...' : $department->description !!}</td>
@@ -64,9 +67,9 @@
                         </td>
                       </tr>
                     @endforeach
-                    
                   </tbody>
                 </table>
+                {{ $departments->links() }}
               </div>
             </div>
           </div>

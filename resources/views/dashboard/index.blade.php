@@ -1,6 +1,6 @@
 @extends('dashboard.partials.app')
 @section('content')
-       
+      
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
@@ -24,7 +24,7 @@
                   <div class="card-body d-flex justify-content-between align-items-center">
                       <div class="left-model">
                         <h4 class="font-weight-normal mb-3">Users</h4>
-                        <h2 class="mb-5">10</h2>
+                        <h2 class="mb-5">{{ $userCount }}</h2>
                       </div>
                       <div class="card-right-icon bg-gradient-secondary">
                         <i class="mdi mdi-account-circle menu-icon"></i>
@@ -37,7 +37,7 @@
                   <div class="card-body d-flex justify-content-between align-items-center">
                     <div class="left-model">
                       <h4 class="font-weight-normal mb-3">Departments</h4>
-                      <h2 class="mb-5">7</h2>
+                      <h2 class="mb-5">{{ $departmentCount }}</h2>
                     </div>
                     <div class="card-right-icon bg-gradient-danger">
                       <i class="mdi mdi-dns menu-icon"></i>
@@ -50,7 +50,7 @@
                   <div class="card-body d-flex justify-content-between align-items-center">
                     <div class="left-model">
                       <h4 class="font-weight-normal mb-3">Doctors</h4>
-                      <h2 class="mb-5">7</h2>
+                      <h2 class="mb-5">{{ $doctorCount }}</h2>
                     </div>
                     <div class="card-right-icon bg-gradient-info">
                       <i class="mdi mdi-doctor menu-icon"></i>
@@ -63,7 +63,7 @@
                   <div class="card-body d-flex justify-content-between align-items-center">
                     <div class="left-model">
                       <h4 class="font-weight-normal mb-3">Patients</h4>
-                      <h2 class="mb-5">20</h2>
+                      <h2 class="mb-5">{{ $patientCount }}</h2>
                     </div>
                     <div class="card-right-icon bg-gradient-success">
                       <i class="mdi mdi-account menu-icon"></i>

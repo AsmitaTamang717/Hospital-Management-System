@@ -21,10 +21,22 @@ class ScheduleRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'date' => ['required','date'],
+       $rules = [
+            'date' => ['date','nullable'],
+            'doc_id' => ['required'],
             'from' => ['required','date_format:H:i'],
-            'to' => ['required','date_format:H:i'],
+            'to' => ['required','date_format:H:i','after:from'],
+            'availability' => ['required'],
+            'total_quota' => ['required','integer']
         ];
+
+        if($this->isMethod('POST')){
+            $rules['days.*'] = 'required';
+        }
+        else if($this->isMethod('PUT')|| $this->isMethod('PATCH')){
+            $rules['days'] = 'required';
+        }
+
+        return $rules;
     }
 }

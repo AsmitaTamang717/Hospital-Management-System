@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\DoctorDashboard;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\DoctorDashboardRequest;
-use App\Http\Requests\ScheduleRequest;
-use App\Models\Schedule;
 use Carbon\Carbon;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ScheduleRequest;
 
 class ScheduleController extends Controller
 {
@@ -21,9 +20,13 @@ class ScheduleController extends Controller
     }
     public function index()
     {
-        $schedules = $this->schedules->all();
-
-        return view('doctorDashboard.schedule.index',compact('schedules'));
+        $user = Auth::user();
+        $doctorId = $user->doc_id;
+        $schedules = $this->schedules->where('doc_id',$doctorId)->get();
+        // dd($schedules);
+        
+        
+        return view('doctorDashboard.schedule.index',compact('schedules','user'));
     }
 
     /**
@@ -61,7 +64,7 @@ class ScheduleController extends Controller
     public function show(string $id)
     {
   
-        //
+
     }
 
     /**
@@ -75,7 +78,6 @@ class ScheduleController extends Controller
 
 
       return view('doctorDashboard.schedule.edit',compact('schedule','fromTime','toTime'));
-        
     }
 
     /**
@@ -105,5 +107,17 @@ class ScheduleController extends Controller
         }
         return redirect()->route('schedule.index')->with('message','Schedule deleted successfully');
 
+    }
+
+    public function updateAvailability(Request $request, $id)
+    {
+
+        $schedule = Schedule::findOrFail($id);
+        $availability = $request->input('availability');
+    
+        $schedule->status = $availability;
+        $schedule->save();
+       
+        return redirect()->back()->with('message', 'Availability updated successfully.');
     }
 }

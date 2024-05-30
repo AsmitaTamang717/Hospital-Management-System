@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('doctors', function (Blueprint $table) {
-            $table->string('permanent_street_name')->after('temporary_street_name');
+        Schema::create('pages', function (Blueprint $table) {
+            $table->id();
+            $table->string('slug');
+            $table->string('image')->nullable();
+            $table->json('title');
+            $table->json('content');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('doctors', function (Blueprint $table) {
-            $table->dropColumn('permanent_street_name');
-        });
+        Schema::dropIfExists('pages');
     }
 };

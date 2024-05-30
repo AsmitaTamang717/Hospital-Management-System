@@ -22,8 +22,8 @@ class DepartmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
-            'code' => ['required'],
+            'name' => ['required', 'string','unique:departments,name'],
+            'code' => ['required','unique:departments,code'],
             'description' => ['required'],
         ];
     }

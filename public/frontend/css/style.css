@@ -977,9 +977,9 @@ a:focus {
   }
 }
 
-.contact-form-wrap .form-group {
+/* .contact-form-wrap .form-group {
   margin-bottom: 20px;
-}
+} */
 
 .contact-form-wrap .form-group .form-control {
   height: 60px;
@@ -1491,3 +1491,6 @@ a:focus {
 }
 
 /*# sourceMappingURL=maps/style.css.map */
+.form-group{
+  margin-bottom: 4px!important;
+}

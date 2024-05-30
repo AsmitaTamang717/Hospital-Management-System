@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentRequest;
 use App\Models\Department;
-use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
@@ -19,7 +18,7 @@ class DepartmentController extends Controller
     }
     public function index()
     {
-        $departments = $this->departments->all();
+        $departments = $this->departments->SimplePaginate(2);
         return view('dashboard.department.index',['departments' => $departments]);
     }
 
@@ -59,7 +58,6 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         $department = $this->departments->findorFail($id);
-        //$department = $this->departments->where('id',$id)->first();
         return view('dashboard.department.edit',compact('department'));
     }
 

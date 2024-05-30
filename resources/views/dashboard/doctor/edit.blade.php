@@ -186,7 +186,7 @@
                             <span class="text-danger"></span> 
                             @enderror
                           </div>                         
-    {{-- @dd($muncipalitiesBasedOnDistrict->pluck('muni_name','id')); --}}
+   
                           <div class="col-md-4 mt-4"> 
                             {{ Form::label('permanent_municipality_id', 'Municipality', ['class' => 'form-label']) }}  <span class="text-danger">*</span>
                             {{ Form::select('permanent_municipality_id',$muncipalitiesBasedOnDistrict->pluck('muni_name','id'), $doctor->permanent_municipality_id,
@@ -447,8 +447,6 @@
 
                        </fieldset>
                     </div>
-
-                    
 
                     {{  Form::close(); }}
             </div>
